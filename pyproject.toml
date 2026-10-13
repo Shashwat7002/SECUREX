@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "securex-vault"
+version = "0.1.0"
+description = "A local-first encrypted file vault with a browser dashboard and CLI"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{name = "Shashwat Choudhary"}]
+dependencies = ["cryptography>=50,<51", "Flask>=3.1,<4", "waitress>=3,<4", "filelock>=3.20,<4"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "ruff>=0.14,<1", "build>=1,<2"]
+
+[project.scripts]
+securex = "securex.cli:main"
+
+[project.urls]
+Repository = "https://github.com/Shashwat7002/SECUREX"
+
+[tool.setuptools.package-data]
+securex = ["static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

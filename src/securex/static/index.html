@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>SECUREX — Your private space</title>
+    <link rel="icon" href="/static/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <script src="/static/app.js" defer></script>
+  </head>
+  <body>
+    <div id="gate" class="gate">
+      <div class="gate-story">
+        <a class="brand" href="/">◈ SECUREX<span>LOCAL VAULT / 01</span></a>
+        <div>
+          <p class="eyebrow">A LITTLE LESS EXPOSED.</p>
+          <h1>Your files.<br />Your keys.<br /><em>Your space.</em></h1>
+          <p class="story-copy">
+            A private home for the things that matter.<br />Encrypted on your
+            device. Always in your hands.
+          </p>
+        </div>
+        <div class="story-bottom">
+          <span>NO CLOUD. NO ACCOUNT.</span><span>OPEN SOURCE ↗</span>
+        </div>
+      </div>
+      <main class="gate-form">
+        <span class="tiny-label">SECUREX / PERSONAL VAULT</span>
+        <div class="gate-inner">
+          <div class="key-symbol" aria-hidden="true">⌘</div>
+          <p class="eyebrow" id="gate-kicker">WELCOME HOME</p>
+          <h2 id="gate-title">Unlock your space.</h2>
+          <p id="gate-copy">
+            Enter your passphrase to open your private vault.
+          </p>
+          <form id="unlock-form">
+            <label for="passphrase">Vault passphrase</label
+            ><input
+              id="passphrase"
+              type="password"
+              autocomplete="current-password"
+              required
+              maxlength="1024"
+              placeholder="Your passphrase"
+            />
+            <div id="confirm-wrap" hidden>
+              <label for="confirm-passphrase">Confirm passphrase</label
+              ><input
+                id="confirm-passphrase"
+                type="password"
+                autocomplete="new-password"
+                maxlength="1024"
+                placeholder="Repeat your passphrase"
+              />
+            </div>
+            <p id="gate-error" class="error" role="alert"></p>
+            <button class="primary wide" id="unlock-button" type="submit">
+              Unlock vault <span>↗</span>
+            </button>
+          </form>
+          <p class="small-note">
+            Your passphrase stays on this device. There is no recovery service,
+            so keep it somewhere safe.
+          </p>
+        </div>
+        <footer>
+          AES-256-GCM <span>•</span> LOCAL ENCRYPTION <span>•</span> v0.1
+        </footer>
+      </main>
+    </div>
+    <div id="workspace" class="workspace" hidden>
+      <aside class="sidebar">
+        <a class="brand" href="/">◈ SECUREX<span>YOUR PRIVATE SPACE</span></a>
+        <p class="nav-label">WORKSPACE</p>
+        <nav aria-label="Workspace">
+          <button data-view="files" class="nav-item active">
+            <span>▤</span> My vault <b id="nav-count">0</b></button
+          ><button data-view="activity" class="nav-item">
+            <span>◷</span> Activity</button
+          ><button data-view="security" class="nav-item">
+            <span>◇</span> Security
+          </button>
+        </nav>
+        <div class="side-note">
+          <div class="orbit" aria-hidden="true"><span>◈</span></div>
+          <h3>Privacy, by design.</h3>
+          <p>Your files live here.<br />Not on someone else’s server.</p>
+        </div>
+        <div class="sidebar-bottom">
+          <span class="live-dot"></span> LOCAL CONNECTION
+          <button id="lock-button" title="Lock vault">Lock ↗</button>
+        </div>
+      </aside>
+      <div class="main-area">
+        <header class="topbar">
+          <span
+            >Personal workspace <span class="slash">/</span>
+            <strong id="breadcrumb">My vault</strong></span
+          >
+          <div>
+            <button class="status-pill" title="Lock vault">
+              <i></i> Vault unlocked · Lock</button
+            ><span class="avatar">S</span>
+          </div>
+        </header>
+        <main class="content">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">PRIVATE BY DEFAULT</p>
+              <h1 id="page-title">A space of your own<span>.</span></h1>
+              <p id="page-description">
+                Keep what matters close. Keep everything else out.
+              </p>
+            </div>
+            <button id="import-button" class="primary">＋ Import files</button>
+          </div>
+          <section id="files-view">
+            <div class="summary-grid">
+              <article class="summary-card">
+                <span class="tiny-label">PROTECTED FILES</span>
+                <div>
+                  <strong id="file-count">00</strong
+                  ><span class="card-icon">▤</span>
+                </div>
+                <p>Individually encrypted. Collectively yours.</p>
+              </article>
+              <article class="summary-card">
+                <span class="tiny-label">ENCRYPTED CONTENT</span>
+                <div>
+                  <strong id="total-size">0 <small>B</small></strong
+                  ><span class="card-icon">▥</span>
+                </div>
+                <p>Original file size, before encryption overhead.</p>
+              </article>
+              <article class="summary-card green">
+                <span class="tiny-label">YOUR PROTECTION</span>
+                <div>
+                  <strong class="cipher">AES-256</strong
+                  ><span class="card-icon">◇</span>
+                </div>
+                <p>
+                  <span class="live-dot"></span> Authenticated encryption, on
+                  your device.
+                </p>
+              </article>
+            </div>
+            <div id="drop-zone" class="drop-zone">
+              <div class="drop-icon">↥</div>
+              <div>
+                <h3>A safer place for your files.</h3>
+                <p>
+                  Drop files here, or
+                  <button id="browse-button" class="text-button">
+                    browse your device
+                  </button>
+                </p>
+              </div>
+              <span class="drop-limit">UP TO 64 MiB PER FILE</span>
+            </div>
+            <input id="file-input" type="file" multiple hidden />
+            <section class="file-panel" aria-label="Encrypted files">
+              <div class="file-toolbar">
+                <div class="filter-tabs" aria-label="File categories">
+                  <button class="selected" data-filter="all">All files</button
+                  ><button data-filter="documents">Documents</button
+                  ><button data-filter="images">Images</button
+                  ><button data-filter="other">Other</button>
+                </div>
+                <label class="search"
+                  ><span aria-hidden="true">⌕</span
+                  ><input
+                    id="search"
+                    type="search"
+                    aria-label="Search files"
+                    placeholder="Find a file…"
+                /></label>
+              </div>
+              <div class="table-scroll">
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">FILE NAME</th>
+                      <th scope="col">
+                        <button id="sort-date">DATE ADDED ↓</button>
+                      </th>
+                      <th scope="col">SIZE</th>
+                      <th scope="col">PROTECTION</th>
+                      <th scope="col"><span class="sr-only">Actions</span></th>
+                    </tr>
+                  </thead>
+                  <tbody id="file-list"></tbody>
+                </table>
+              </div>
+              <div id="empty" class="empty">
+                <span>▤</span>
+                <h3>Make yourself at home.</h3>
+                <p>Import your first file to start your private collection.</p>
+              </div>
+              <div class="table-footer">
+                <span id="results-count">0 files</span
+                ><span>ONLY YOU HOLD THE KEYS</span>
+              </div>
+            </section>
+            <div class="quiet-note">
+              <span>◇</span>
+              <p>
+                Importing creates an encrypted copy. Your original files stay
+                where they are.
+              </p>
+              <button class="text-button" data-view="security">
+                How it works ↗
+              </button>
+            </div>
+          </section>
+          <section id="activity-view" hidden>
+            <div class="section-intro">
+              <h2>A clear view of this session.</h2>
+              <p>
+                Local activity lives in memory and clears when SECUREX stops.
+                File names and passphrases are never included.
+              </p>
+            </div>
+            <div id="event-list" class="event-list"></div>
+          </section>
+          <section id="security-view" hidden>
+            <div class="security-grid">
+              <article class="security-card">
+                <span class="tiny-label">01 / ENCRYPTION</span>
+                <h2>Built around your keys.</h2>
+                <p>
+                  AES-256-GCM protects every file and the catalog. A memory-hard
+                  scrypt derivation wraps your vault key with your passphrase.
+                </p>
+                <dl>
+                  <div>
+                    <dt>File contents & names</dt>
+                    <dd>Encrypted</dd>
+                  </div>
+                  <div>
+                    <dt>Cloud connections</dt>
+                    <dd>None</dd>
+                  </div>
+                  <div>
+                    <dt>Inactivity lock</dt>
+                    <dd>5 minutes</dd>
+                  </div>
+                </dl>
+              </article>
+              <article class="security-card">
+                <span class="tiny-label">02 / INTEGRITY</span>
+                <h2>Trust, then verify.</h2>
+                <p>
+                  Authenticate every encrypted file and compare its checksum
+                  with the encrypted catalog.
+                </p>
+                <button id="verify-button" class="secondary">
+                  Run integrity check ↗
+                </button>
+                <div id="verify-result" aria-live="polite"></div>
+              </article>
+              <article class="security-card">
+                <span class="tiny-label">03 / RECOVERY</span>
+                <h2>Keep a second copy.</h2>
+                <p>
+                  Export an encrypted snapshot with its wrapped keys. Store it
+                  safely: a backup can recover files even after you remove them
+                  here.
+                </p>
+                <button id="backup-button" class="secondary">
+                  Export encrypted backup ↓
+                </button>
+                <p class="small-note">
+                  Restore by extracting into an empty directory and launching
+                  SECUREX with that directory.
+                </p>
+              </article>
+              <article class="security-card">
+                <span class="tiny-label">04 / ACCESS</span>
+                <h2>A fresh passphrase.</h2>
+                <p>
+                  Change how you unlock this vault without re-encrypting each
+                  file. Existing backups retain their old passphrase.
+                </p>
+                <button id="change-button" class="secondary">
+                  Change passphrase ↗
+                </button>
+              </article>
+            </div>
+            <aside class="security-disclosure">
+              <h3>Know the boundaries.</h3>
+              <p>
+                SECUREX is an early release, not independently audited. It
+                cannot protect an unlocked or compromised device, erase original
+                files or backups, hide file sizes, or guarantee key erasure from
+                SSDs, snapshots, swap, or memory.
+              </p>
+            </aside>
+            <div class="danger-zone">
+              <div>
+                <h3>Remove the vault key</h3>
+                <p>
+                  Disables access through this vault. Existing backups and
+                  storage remnants may still retain keys.
+                </p>
+              </div>
+              <button id="destroy-button" class="danger-outline">
+                Remove key
+              </button>
+            </div>
+          </section>
+          <footer class="workspace-footer">
+            <span>SECUREX <b> / </b> LOCAL-FIRST FILE VAULT</span
+            ><span>Made for a more private everyday.</span>
+          </footer>
+        </main>
+      </div>
+    </div>
+    <dialog id="dialog">
+      <form id="dialog-form">
+        <button type="button" class="dialog-close" aria-label="Close dialog">
+          ×
+        </button>
+        <p class="eyebrow" id="dialog-kicker">VAULT ACTION</p>
+        <h2 id="dialog-title"></h2>
+        <p id="dialog-description"></p>
+        <div id="dialog-fields"></div>
+        <p id="dialog-error" class="error" role="alert"></p>
+        <div class="dialog-buttons">
+          <button type="button" class="secondary dialog-close">Cancel</button
+          ><button id="dialog-submit" class="primary" type="submit">
+            Continue
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <div id="toast" class="toast" role="status" hidden></div>
+  </body>
+</html>
