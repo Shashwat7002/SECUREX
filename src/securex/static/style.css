@@ -1164,3 +1164,29 @@ dialog input {
     scroll-behavior: auto !important;
   }
 }
+
+/* Contain the off-screen accessible table label inside its scroll region. */
+.table-scroll {
+  position: relative;
+}
+@media (max-width: 760px) {
+  .nav-item {
+    white-space: nowrap;
+    gap: 7px;
+    font-size: 10px;
+    padding-inline: 8px;
+  }
+  th:nth-child(2),
+  td:nth-child(2),
+  th:nth-child(4),
+  td:nth-child(4) {
+    display: none;
+  }
+  th,
+  td {
+    padding-inline: 10px;
+  }
+  .filename {
+    max-width: 140px;
+  }
+}
