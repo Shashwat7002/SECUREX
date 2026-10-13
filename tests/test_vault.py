@@ -22,6 +22,7 @@ def vault(tmp_path):
 @pytest.mark.parametrize(
     "name,data",
     [("empty.txt", b""), ("研究.pdf", b"private report"), ("binary.dat", bytes(range(256)) * 5000)],
+    ids=["empty-file", "unicode-name", "binary-file"],
 )
 def test_round_trip_and_restart(vault, name, data):
     item = vault.add(name, data)
