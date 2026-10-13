@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
 authors = [{name = "Shashwat Choudhary"}]
-dependencies = ["cryptography>=50,<51", "Flask>=3.1,<4", "waitress>=3,<4", "filelock>=3.20,<4"]
+dependencies = ["cryptography>=50,<51", "Flask>=3.1,<4", "waitress>=3,<4", "filelock>=3.20,<5"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8,<10", "ruff>=0.14,<1", "build>=1,<2"]
